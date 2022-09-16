@@ -1,19 +1,19 @@
 ---
-title           : "My preregistration for AsPredicted.org"
+title           : "Reproducibility mini project: Alberta trees"
 shorttitle      : "My preregistration"
 date            : "`r Sys.setlocale('LC_TIME', 'C'); format(Sys.time(), '%d\\\\. %B %Y')`"
 
 author: 
-  - name        : First Author
-    affiliation : 1
-  - name        : Ernst-August Doelle
-    affiliation : "1,2"
+  - name        : Rolando Trejo P.
+    affiliation : "1"
+  - name        : 
+    affiliation : 
 
 affiliation:
   - id          : 1
-    institution : Wilhelm-Wundt-University
-  - id          : 2
-    institution : Konstanz Business School
+    institution : Institut de recherche en biologie végétale, Université de Montréal
+  - id          : 
+    institution : 
 
 output: prereg::prereg_pdf
 ---
@@ -76,13 +76,12 @@ output: prereg::prereg_pdf
 
 Finally. For record keeping purposes, please tell us the type of study you are pre-registering.
 
--   Class project or assignment
--   Experiment
--   Survey
--   Observational/archival study
--   Other:
+-   Class project or assignment: reproducibility
+
 
 # References
+
+Hesketh, A., Loesberg, J., Bledsoe, E., Karst, J., & Macdonald, E. (2021). Seasonal and annual dynamics of western Canadian boreal forest plant communities: A legacy dataset spanning four decades [Data set]. Scholars Portal Dataverse. https://doi.org/10.5683/SP3/PZCAVE
 
 ## 
 
