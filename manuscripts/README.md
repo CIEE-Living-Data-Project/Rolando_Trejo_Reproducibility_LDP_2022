@@ -1,6 +1,8 @@
 
-####### PREREGISTRATION IMPORTANT INFORMATION ################
-# Rolando_Trejo_Reproducibility_LDP_2022
+PREREGISTRATION IMPORTANT INFORMATION
+
+Rolando_Trejo_Reproducibility_LDP_2022
+
 Here we find packages used to use a preregistration template from RMarkdon.
 The template corresponds to the AsPredicted.org preregistration(PDF)
 
