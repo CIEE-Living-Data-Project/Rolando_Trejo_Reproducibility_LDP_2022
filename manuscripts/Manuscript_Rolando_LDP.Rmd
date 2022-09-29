@@ -49,82 +49,204 @@ bibliography: references.bib
 knitr::opts_chunk$set
 # I like to put all of my library calls here, each on a seperate line. I am not 
 # sure if this is good or bad practice.
-library(tidyverse)
-library(palmerpenguins)
-library(GGally)
-library(kableExtra)
+
 ```
 
-**Title**: TEMPLATE (The title of your groundbreaking research paper)
+```{r, include=FALSE,message=FALSE, echo=FALSE}
+RequiredPackages <- c("tidyverse","palmerpenguins","GGally","kableExtra","medicaldata","rmarkdown",
+                      "dataverse","tibble","dplyr","ggplot2","mgcv","cowplot")
+for (i in RequiredPackages) { #Installs packages if not yet installed
+  if (!require(i, character.only = TRUE)) install.packages(i)
+}
 
-First Author^1^\*, Second Author^1^, Third Author^2,1^
+library("tidyverse")
+library("palmerpenguins")
+library("GGally")
+library("kableExtra")
+library("medicaldata")
+library("rmarkdown")
+library("dataverse") 
+library("tibble") 
+library("dplyr")
+library("ggplot2") 
+library("mgcv") 
+library("cowplot") 
 
-1.  Dept. of Biology, Institution A, City, Province, Country
+knitr::opts_chunk$set(echo = FALSE)
+```
 
-2.  Environmental Science Centre, Governmental Organisation, City, Province, Country
+**REPRODUCIBILITY MINI PROJECT: ALBERTA TREES**
+
+Rolando Trejo Pérez 1^\*
+
+1.  Institut de recherche en biologie végétale, Université de Montréal
 
 \*Corresponding Author
 
-email: first.author\@institutiona.ca (FA)
+email: rolando.trejo.perez@umontreal.ca
 
-**Author Contributions:** FA conceived of the study, conducted the analyses, and wrote the original, and revised drafts of the manuscript. SA, and TA, helped with the draft manuscript and revisions and supplied guidance to FA. TA provided the data for the case study, contributed to the revisions, and assisted with the analysis of the case study data.
+**Author Contributions:** RTP is writting this mini reproducibility project.
 
-**Data Availability:** The data and code that support the findings of this study are openly available on Zenodo / GitHub at <https://link_to_archived_release_or_GitHub.com>.
+**Data Availability:**Two databases were downloaded from the Seasonal and annual dynamics of western Canadian boreal forest plant communities: a legacy dataset spanning four decades:https://borealisdata.ca/dataset.xhtml?persistentId=doi:10.5683/SP3/PZCAVE
 
-If I was publishing this as an HTML document and wanted the link to be pretty versus human readable, I would use [this format](https://link_to_archived_release_or_GitHub.com) instead
 
 **Conflict of Interest statement**
 
 No conflicts of interest
 
-**Acknowledgements:** We would like to thank a whole bunch of people.
+**Acknowledgements:** I thank George H. La Roi and colleagues, Amelia Hesketh, Jenna Loesberg,Ellen Bledsoe, Justine Karst,and Ellen Macdonald.
 
 \newpage
 
 # Abstract
 
-1.  Ecologists often have lots of questions about lots of stuff
+The goal of this manuscript is using reproducibility workflow in ecology and evolution. I used open access data, which is available in Boreales (see references below). This data was rescued by Hesketh et al., 2021. This mini project was created with the open-source software R, OSF and GitHub. A very simple question is stated: does species richness varies along the soil temperature? All the code used here is available in a public GitHub repository.
 
-2.  We evaluated a bunch of things using sophisticated methods and carried out complicated statistical tests
-
-3.  We discovered a bunch of things that we didn't already know but suspected
-
-4.  Our research has greatly advanced out knowledge about stuff and will make a significant contribution to something and someone
-
-**Key-words**: stuff, something
-
+**Key-words**: reproducibility, diversity, species richness, soil temperature.
 \newpage
 
 # Introduction
 
-## And example of adding citations in RMarkdown...
+Global warming is predicted to significantly alter species physiology, biotic interactions and thus ecosystem functioning, as a consequence of coexisting species exhibiting a wide range of thermal sensitivities. The richness diversity of plants decreased with increasing soil temperature, driven by decreasing plant species richness (Robinson et al., 2018). Species richness and its relationship with temperature has been assessed along altitudinal and horizontal gradients revealing significant linear relationships between species richness and altitude and climatic variables (Pickering et al., 2008). 
 
-Ecologists have long recognized that some combinations of species are regularly found together, while other combinations occur infrequently [@Cole:1949dz; @Elton:1946dl].
 
-The above format wraps the citation in brackets but if you want to reference the authors by name instead of just as a citation you can use this format instead (i.e., no square brackets around the cite key)
-
-@Cole:1949dz and @Elton:1946dl both found that blah blah blah
+Here, in this manuscript, I used a very simple linear model to explore the relationship between vascular diversity and soil temperature from  the Seasonal Dynamics (SEADYN) and later Annual Dynamics (ANNDYN) research project. The primary purpose of this project was to document seasonal changes in the vegetative composition during the snow-free season (May through October) and longer-term changes in vegetation and forest mensuration for boreal forest stands in Alberta, Canada dominated by Pinus banksiana (Lamb.) (Hesketh et al., 2021).
 
 # Methods
 
-To evaluate the ...
+This mini reproducibility project was built using rescued data by Amelia Hesketh, Jenna Loesberg, Ellen Bledsoe, Justine Karst,and Ellen Macdonald in 2021 from an Alberta legacy dataset spanning four decades (1980-2015). We use two different datasets: 1) Hondo Vascular Cover (1980-2015) and 2) Hondo Soil Temperature (1980-2010). These datasets are available in Borealis at https://borealisdata.ca/dataset.xhtml?persistentId=doi:10.5683/SP3/PZCAVE
 
-As with Pielou's Evenness [@Pielou:1967ea], Shannon's diversity index [@Shannon:1948iy]$(H)$ is normally calculated from species abundance values; however, for our purposes it is calculated from the column totals (species richness per sample) using the following equation...
+A very simple model is explored in this reproducible project: Does species richness varies along the soil temperature? For this purpose i only use 2010 data and the following linear model approach:
 
 $$
-H_x = -S[P(i_x) \times ln(P(i_x))]
+SR = ST+e
 $$
 
-where $x$ denotes which set of values we are using to calculate the index (observed, minimal or maximal), and $P(i_x)$ is the proportion of species that occur in each sample $(i)$.
+where $SR$ denotes the species richness, $ST$ is the soil temperature in Celsius,and  $e$ is the error.
 
-The above demonstrates both "inline" and "display" math formats. If you look at the Source version you will see that it is simply the number of \$ symbols before and after that differentiates between the two. An excellent (and simple) guide on inserting math into your R Markdown documents can be found here:\
-<https://rpruim.github.io/s341/S19/from-class/MathinRmd.html>
-
-Statistical analyses were carried out in R 3.4.0 (R Core Team 2017). All code along with the simulation algorithms used are available on Zenodo / GitHub <https://link_to_archived_release_or_GitHub.com>.
+This mini project was created with the open-source software R. Packages used were dataverse,tibble,dplyr,ggplot2, and mgcv.
+Statistical analyses were carried out in R 3.5.0 (R Core Team 2017). All code used in this manuscript is available on GitHub <https://github.com/CIEE-Living-Data-Project/Rolando_Trejo_Reproducibility_LDP_2022>.
 
 # Results
 
+```{r code, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+### 1. CREATING DIRECTORIES AND INSTALLING R PACKAGES ###
+
+RequiredPackages <- c("dataverse","tibble","dplyr","ggplot2","mgcv")
+for (i in RequiredPackages) { #Installs packages if not yet installed
+  if (!require(i, character.only = TRUE)) install.packages(i)}
+
+library("dataverse") # To access to data from dataverse repository
+library("tibble") # To see data frames in tidyverse-form
+library("dplyr") # To solve the most common data manipulation challenges
+library("ggplot2") # To data visualization
+library("mgcv") # To estimate penalized Generalized Linear models including 
+                #Generalized Additive Models and Generalized Additive Mixed Models
+
+# 1.1 Check for directory path
+
+getwd()
+
+### 2. DOWNLOAD DATA FROM DATAVERSE (download in 2022-15-09): ###
+
+# Two databases were download from the Seasonal and annual dynamics of western 
+# Canadian boreal forest plant communities: a legacy dataset spanning four decades:
+
+# [https://borealisdata.ca/dataset.xhtml?persistentId=doi:10.5683/SP3/PZCAVE]
+
+# 2.1 Vascular cover from 1980 to 2015
+
+Hondo_VascularCover_1980_2015 <- get_dataframe_by_name(
+  filename = "Hondo_VascularCover_1980_2015.tab",
+  dataset = "10.5683/SP3/PZCAVE", 
+  server = "https://borealisdata.ca/dataverse/ubc")
+
+# 2.2 Soil temperature from 1980 to 2010 
+
+Hondo_SoilTemp_1980_2010 <- get_dataframe_by_name(
+  filename = "Hondo_SoilTemp_1980_2010.tab",
+  dataset = "10.5683/SP3/PZCAVE", 
+  server = "https://borealisdata.ca/dataverse/ubc")
+### 4. DATA MANIPULATION ###
+    
+# 4.1. Generate a subset of data considering only 2010 data to simplify the statistical analyses.
+    
+    Hondo_VascularCover_2010 <- subset(Hondo_VascularCover_1980_2015,
+                                  year== "2010" )          # Selecting from one category in rows
+    Hondo_SoilTemp_2010 <- subset(Hondo_SoilTemp_1980_2010,
+                                  year== "2010" )
+# 4.2. Merge Vascular cover and Soil temperature datasets by month, year, stand and quad 
+   
+    df=inner_join(Hondo_VascularCover_2010, Hondo_SoilTemp_2010, by = c("month","year","stand", "quad"))
+
+# 4.3 It creates a subset ob non-binary data
+
+df_non_binary <- subset(df,select = c(stand, month,year,date,quad,temp_C))
+
+#  It creates a subset of binary data: abundances needs to be transformed into 0 and 1 
+# in order to count the species richness in each row.
+
+df_species <- subset(df,select = c(-stand, -month,-year,-date,-temp_C))
+
+# It transforms abundances into 0 and 1
+
+df_binary <- data.frame(df_species[1], (df_species[-1] > 0) * 1)
+
+# It merges the non binary data, soil temperature, and species abundances transformed into 0 and 1.
+
+df_trans <- data.frame(df_non_binary,df_binary)
+
+# It sums the number of species in each row
+
+df_trans$species_no <- rowSums( df_trans[,8:221] )
+
+# It create the final table version: it includes only the species richness and soil temperature
+
+Species_Temp <- subset(df_trans,select = c(species_no,temp_C))
+
+# Linear model or not?
+
+library(mgcv)
+
+# The following code provides a linear and non-linear model approach:
+
+linear_model <- gam(species_no  ~ temp_C, data = Species_Temp)
+smooth_model <- gam(species_no  ~ s(temp_C), data = Species_Temp)
+# Visualization
+
+library(ggplot2)
+
+# It graphs the linear model (species richness vs soil temperature) using ggplot2
+
+Linear<-ggplot(Species_Temp, aes(x = temp_C, y = species_no )) +
+  geom_point() +
+  geom_line(colour = "red", size = 1.2,
+            aes(y = fitted(linear_model))) +
+  xlab("Soil temperature (C)") +
+  ylab("Species richness") +
+  labs(title = "A) Linear model line")+
+  theme_bw()
+
+Linear
+
+# It graphs the non-linear model (species richness vs soil temperature) using ggplot2
+
+Non_linear<-ggplot(Species_Temp, aes(x = temp_C, y = species_no )) +
+  geom_point() +
+  xlab("Soil temperature (C)") +
+  ylab("Species richness") +
+  labs(title = "B) Smooth model curve")+
+  geom_line(colour = "blue", size = 1.2,
+            aes(y = fitted(smooth_model))) +
+  theme_bw()
+
+Non_linear
+```
+A higher species richness is linked to a lower soil temperature according to this simple linear model. We can also see that linearity is supported by these data (see Figure 1). However, this is just a model considering soil temperature as the only predictor. Other variables must be considered to search if it is a real observed trend. See more detail in the [Living Data Tutorials](https://living-data-tutorials.github.io/website/)
+
 # Discussion
+
+The code used here in this mini reproducibility project can be used as guide through the creation and management of a fully reproducible manuscript using RMarkdown and Rstudio.
 
 # References
 
@@ -137,73 +259,29 @@ document. For example... -->
 <!-- this little chunk of code (the ::: stuff below) forces the references to show up here. If you
 don't use this then they are put at the end of the document by default -->
 ```
-::: {#refs}
-:::
+Hesketh, A., Loesberg, J., Bledsoe, E., Karst, J., & Macdonald, E. (2021). Seasonal and annual dynamics of western Canadian boreal forest plant communities: A legacy dataset spanning four decades [Data set]. Scholars Portal Dataverse. https://doi.org/10.5683/SP3/PZCAVE
+
+Pickering, C., Hill, W. & Green, K. Vascular plant diversity and climate change in the alpine zone of the Snowy Mountains, Australia. Biodivers Conserv 17, 1627–1644 (2008). https://doi.org/10.1007/s10531-008-9371-y
+
+Robinson, S.I., McLaughlin, O.B., Maereinsdóttir, B., and O'Gorman, E.J. Soil temperature effects on the structure and diversity of plant and invertebrate communities in a natural warming experiment, Journal of Animal Ecology, 87(3):634-646 (2018).
+\newpage
+```{r figure_02, echo=FALSE, message=FALSE, warning=FALSE}
+
+library(cowplot)
+plot_grid(Linear,Non_linear, labels = "") #"AUTO"
+
+```
+
+Figure 1. A) linear model approach and B) a non linear model approach. Linearity is respected.
 
 \newpage
 
 # Tables
 
-**Table 1.** Mean body mass of penguins on different islands over time.
-
-Note: for the word version the `kable` does not output correctly. You could try using `flextable` package instead: <https://taehoonh.me/content/post/alternative-to-kable-function-when-knitting-to-ms-word.html>
-
-```{r table_01, message=FALSE, warning=FALSE, include=FALSE, paged.print=TRUE}
-penguin_sum <- penguins %>%
-  group_by(island, year) %>%
-  summarize(mean_body_mass_g = mean(body_mass_g, na.rm = TRUE)) %>% 
-  ungroup()
-
-kable(x = penguin_sum, 
-      col.names = c("Island", "Year", "Mean Body Mass (g)")) %>%
-  kable_styling(latex_options = "hold_position") 
-# without the "hold_position" the table ends up at the top of the page
-
-```
-
-\newpage
-
-# Figure Captions
-
-**Figure 1**. Pretty coloured dots about penguins
-
-**Figure 2**. Wow, even prettier plot about penguins that shows stuff
-
-\newpage
-
-# Figures
-
-Figure 1.
-
-\newpage
-
-```{r figure_02, echo=FALSE, message=FALSE, warning=FALSE}
-penguins %>%
-  select(species, body_mass_g, ends_with("_mm")) %>% 
-  GGally::ggpairs(aes(color = species),
-          columns = c("flipper_length_mm", "body_mass_g", 
-                      "bill_length_mm", "bill_depth_mm")) +
-  scale_colour_manual(values = c("darkorange","purple","cyan4")) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"))
-```
-
-Figure 2.
-
-\newpage
-
-Figure 3.
+There are not table to show.
 
 \newpage
 
 # Appendices
 
-```{=html}
-<!-- You might want to look into Bookdown if you want to do anything fancier
-with your manuscript. Bookdown allows for automatic Table and Figure numbering
-as well as cross referencing. That is you can create links between 'Fig 1' in
-your manuscript that links to the actual figure and automatically the
-the figure number as you add or remove them from the document.
-
-I add this here because Appendices can require special handling by some 
-journals and Bookdown might allow you to do that automagically -->
-```
+There are not appendices to show.
