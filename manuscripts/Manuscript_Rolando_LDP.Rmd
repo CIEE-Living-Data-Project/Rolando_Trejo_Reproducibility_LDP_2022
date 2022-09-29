@@ -77,18 +77,17 @@ knitr::opts_chunk$set(echo = FALSE)
 
 **REPRODUCIBILITY MINI PROJECT: ALBERTA TREES**
 
-Rolando Trejo Pérez 1^\*
+Rolando Trejo Pérez 1\^\*
 
 1.  Institut de recherche en biologie végétale, Université de Montréal
 
 \*Corresponding Author
 
-email: rolando.trejo.perez@umontreal.ca
+email: [rolando.trejo.perez\@umontreal.ca](mailto:rolando.trejo.perez@umontreal.ca){.email}
 
 **Author Contributions:** RTP is writting this mini reproducibility project.
 
-**Data Availability:**Two databases were downloaded from the Seasonal and annual dynamics of western Canadian boreal forest plant communities: a legacy dataset spanning four decades:https://borealisdata.ca/dataset.xhtml?persistentId=doi:10.5683/SP3/PZCAVE
-
+**Data Availability:**Two databases were downloaded from the Seasonal and annual dynamics of western Canadian boreal forest plant communities: a legacy dataset spanning four decades:<https://borealisdata.ca/dataset.xhtml?persistentId=doi:10.5683/SP3/PZCAVE>
 
 **Conflict of Interest statement**
 
@@ -96,25 +95,21 @@ No conflicts of interest
 
 **Acknowledgements:** I thank George H. La Roi and colleagues, Amelia Hesketh, Jenna Loesberg,Ellen Bledsoe, Justine Karst,and Ellen Macdonald.
 
-\newpage
-
 # Abstract
 
 The goal of this manuscript is using reproducibility workflow in ecology and evolution. I used open access data, which is available in Boreales (see references below). This data was rescued by Hesketh et al., 2021. This mini project was created with the open-source software R, OSF and GitHub. A very simple question is stated: does species richness varies along the soil temperature? All the code used here is available in a public GitHub repository.
 
-**Key-words**: reproducibility, diversity, species richness, soil temperature.
-\newpage
+**Key-words**: reproducibility, diversity, species richness, soil temperature. \newpage
 
 # Introduction
 
-Global warming is predicted to significantly alter species physiology, biotic interactions and thus ecosystem functioning, as a consequence of coexisting species exhibiting a wide range of thermal sensitivities. The richness diversity of plants decreased with increasing soil temperature, driven by decreasing plant species richness (Robinson et al., 2018). Species richness and its relationship with temperature has been assessed along altitudinal and horizontal gradients revealing significant linear relationships between species richness and altitude and climatic variables (Pickering et al., 2008). 
+Global warming is predicted to significantly alter species physiology, biotic interactions and thus ecosystem functioning, as a consequence of coexisting species exhibiting a wide range of thermal sensitivities. The richness diversity of plants decreased with increasing soil temperature, driven by decreasing plant species richness [@robinson2018]. Species richness and its relationship with temperature has been assessed along altitudinal and horizontal gradients revealing significant linear relationships between species richness and altitude and climatic variables [@pickering2008].
 
-
-Here, in this manuscript, I used a very simple linear model to explore the relationship between vascular diversity and soil temperature from  the Seasonal Dynamics (SEADYN) and later Annual Dynamics (ANNDYN) research project. The primary purpose of this project was to document seasonal changes in the vegetative composition during the snow-free season (May through October) and longer-term changes in vegetation and forest mensuration for boreal forest stands in Alberta, Canada dominated by Pinus banksiana (Lamb.) (Hesketh et al., 2021).
+Here, in this manuscript, I used a very simple linear model to explore the relationship between vascular diversity and soil temperature from the Seasonal Dynamics (SEADYN) and later Annual Dynamics (ANNDYN) research project. The primary purpose of this project was to document seasonal changes in the vegetative composition during the snow-free season (May through October) and longer-term changes in vegetation and forest mensuration for boreal forest stands in Alberta, Canada dominated by Pinus banksiana (Lamb.) [@hesketh2022]
 
 # Methods
 
-This mini reproducibility project was built using rescued data by Amelia Hesketh, Jenna Loesberg, Ellen Bledsoe, Justine Karst,and Ellen Macdonald in 2021 from an Alberta legacy dataset spanning four decades (1980-2015). We use two different datasets: 1) Hondo Vascular Cover (1980-2015) and 2) Hondo Soil Temperature (1980-2010). These datasets are available in Borealis at https://borealisdata.ca/dataset.xhtml?persistentId=doi:10.5683/SP3/PZCAVE
+This mini reproducibility project was built using rescued data by Amelia Hesketh, Jenna Loesberg, Ellen Bledsoe, Justine Karst,and Ellen Macdonald in 2021 from an Alberta legacy dataset spanning four decades (1980-2015). We use two different datasets: 1) Hondo Vascular Cover (1980-2015) and 2) Hondo Soil Temperature (1980-2010). These datasets are available in Borealis at <https://borealisdata.ca/dataset.xhtml?persistentId=doi:10.5683/SP3/PZCAVE>
 
 A very simple model is explored in this reproducible project: Does species richness varies along the soil temperature? For this purpose i only use 2010 data and the following linear model approach:
 
@@ -122,101 +117,112 @@ $$
 SR = ST+e
 $$
 
-where $SR$ denotes the species richness, $ST$ is the soil temperature in Celsius,and  $e$ is the error.
+where $SR$ denotes the species richness, $ST$ is the soil temperature in Celsius,and $e$ is the error.
 
-This mini project was created with the open-source software R. Packages used were dataverse,tibble,dplyr,ggplot2, and mgcv.
-Statistical analyses were carried out in R 3.5.0 (R Core Team 2017). All code used in this manuscript is available on GitHub <https://github.com/CIEE-Living-Data-Project/Rolando_Trejo_Reproducibility_LDP_2022>.
+This mini project was created with the open-source software R. Packages used were dataverse,tibble,dplyr,ggplot2, and mgcv. Statistical analyses were carried out in R 3.5.0 (R Core Team 2017). All code used in this manuscript is available on GitHub <https://github.com/CIEE-Living-Data-Project/Rolando_Trejo_Reproducibility_LDP_2022>.
 
-# Results
 
-```{r code, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
-### 1. CREATING DIRECTORIES AND INSTALLING R PACKAGES ###
+<!-- All the code procedure is indicated here. -->
 
-RequiredPackages <- c("dataverse","tibble","dplyr","ggplot2","mgcv")
-for (i in RequiredPackages) { #Installs packages if not yet installed
-  if (!require(i, character.only = TRUE)) install.packages(i)}
+I followed 4 steps to answer the question stated in this manuscript. It included dowloading data from the dataverse (Borealis) repository, data manipulation to get the final cleaned data, model codification, and grhapich visualization to show the main result.
 
-library("dataverse") # To access to data from dataverse repository
-library("tibble") # To see data frames in tidyverse-form
-library("dplyr") # To solve the most common data manipulation challenges
-library("ggplot2") # To data visualization
-library("mgcv") # To estimate penalized Generalized Linear models including 
-                #Generalized Additive Models and Generalized Additive Mixed Models
+### 1. DOWNLOAD DATA FROM DATAVERSE (download in 2022-15-09)
 
-# 1.1 Check for directory path
+Two databases were download from the Seasonal and annual dynamics of western Canadian boreal forest plant communities: a legacy dataset spanning four decades at https://borealisdata.ca/dataset.xhtml?persistentId=doi:10.5683/SP3/PZCAVE
 
-getwd()
+```{r code1, echo=TRUE, message=FALSE, warning=FALSE, paged.print=TRUE}
 
-### 2. DOWNLOAD DATA FROM DATAVERSE (download in 2022-15-09): ###
-
-# Two databases were download from the Seasonal and annual dynamics of western 
-# Canadian boreal forest plant communities: a legacy dataset spanning four decades:
-
-# [https://borealisdata.ca/dataset.xhtml?persistentId=doi:10.5683/SP3/PZCAVE]
-
-# 2.1 Vascular cover from 1980 to 2015
-
+# 1.1 Vascular cover from 1980 to 2015
+library("dataverse") 
 Hondo_VascularCover_1980_2015 <- get_dataframe_by_name(
   filename = "Hondo_VascularCover_1980_2015.tab",
   dataset = "10.5683/SP3/PZCAVE", 
   server = "https://borealisdata.ca/dataverse/ubc")
 
-# 2.2 Soil temperature from 1980 to 2010 
+# 1.2 Soil temperature from 1980 to 2010 
 
 Hondo_SoilTemp_1980_2010 <- get_dataframe_by_name(
   filename = "Hondo_SoilTemp_1980_2010.tab",
   dataset = "10.5683/SP3/PZCAVE", 
   server = "https://borealisdata.ca/dataverse/ubc")
-### 4. DATA MANIPULATION ###
-    
-# 4.1. Generate a subset of data considering only 2010 data to simplify the statistical analyses.
+```
+
+### 2. DATA MANIPULATION
+
+To answer my question, a cleaning procedure is required. It consists of merging the 2010 vascular cover and soil temperature subsets, converting the abundances data in binary data, summarizing the number of species, and creating a final file conserving only the number of species and soil temperature (Species_Temp).
+
+```{r code2, echo=TRUE, message=FALSE, warning=FALSE, paged.print=TRUE}
+
+# 2.1. Generate a subset of data considering only 2010 data to simplify 
+# the statistical analyses.
     
     Hondo_VascularCover_2010 <- subset(Hondo_VascularCover_1980_2015,
-                                  year== "2010" )          # Selecting from one category in rows
+                                  year== "2010" )
     Hondo_SoilTemp_2010 <- subset(Hondo_SoilTemp_1980_2010,
                                   year== "2010" )
-# 4.2. Merge Vascular cover and Soil temperature datasets by month, year, stand and quad 
+# 2.2. Merge Vascular cover and Soil temperature datasets by month, 
+# year, stand and quad. 
    
-    df=inner_join(Hondo_VascularCover_2010, Hondo_SoilTemp_2010, by = c("month","year","stand", "quad"))
+    df=inner_join(Hondo_VascularCover_2010, 
+                  Hondo_SoilTemp_2010, 
+                  by = c("month","year","stand", "quad"))
 
-# 4.3 It creates a subset ob non-binary data
+# 2.3 It creates a subset ob non-binary data
 
-df_non_binary <- subset(df,select = c(stand, month,year,date,quad,temp_C))
+df_non_binary <- subset(df,select = c(stand, month,year,
+                                      date,quad,temp_C))
 
-#  It creates a subset of binary data: abundances needs to be transformed into 0 and 1 
+#  2.4 It creates a subset of binary data: abundances needs to 
+# be transformed into 0 and 1 
 # in order to count the species richness in each row.
 
 df_species <- subset(df,select = c(-stand, -month,-year,-date,-temp_C))
 
-# It transforms abundances into 0 and 1
+# 2.5 It transforms abundances into 0 and 1
 
 df_binary <- data.frame(df_species[1], (df_species[-1] > 0) * 1)
 
-# It merges the non binary data, soil temperature, and species abundances transformed into 0 and 1.
+# 2.6 It merges the non binary data, soil temperature, and species 
+# abundances transformed into 0 and 1.
 
 df_trans <- data.frame(df_non_binary,df_binary)
 
-# It sums the number of species in each row
+# 2.7 It sums the number of species in each row
 
 df_trans$species_no <- rowSums( df_trans[,8:221] )
 
-# It create the final table version: it includes only the species richness and soil temperature
+# 2.8 It create the final table version: it includes only the 
+# species richness and soil temperature
 
 Species_Temp <- subset(df_trans,select = c(species_no,temp_C))
 
-# Linear model or not?
+```
 
+### 3. MODEL: Linear model or not?
+
+I compared the linear model and non-linear model approach using gam R package.
+
+```{r code3, echo=TRUE, message=FALSE, warning=FALSE, paged.print=TRUE}
 library(mgcv)
 
 # The following code provides a linear and non-linear model approach:
 
 linear_model <- gam(species_no  ~ temp_C, data = Species_Temp)
 smooth_model <- gam(species_no  ~ s(temp_C), data = Species_Temp)
-# Visualization
+
+```
+
+### 4. VISUALIZATION
+
+To facilitate the interpretation of the linearity when modeling species richness and soil temperature, two graphics are proposed. 
+
+
+
+```{r code4, echo=TRUE, message=FALSE, warning=FALSE, paged.print=TRUE}
 
 library(ggplot2)
 
-# It graphs the linear model (species richness vs soil temperature) using ggplot2
+# 4.1 It graphs the linear model (species richness vs soil temperature)
 
 Linear<-ggplot(Species_Temp, aes(x = temp_C, y = species_no )) +
   geom_point() +
@@ -226,10 +232,13 @@ Linear<-ggplot(Species_Temp, aes(x = temp_C, y = species_no )) +
   ylab("Species richness") +
   labs(title = "A) Linear model line")+
   theme_bw()
+```
 
-Linear
 
-# It graphs the non-linear model (species richness vs soil temperature) using ggplot2
+
+```{r code5, echo=TRUE, message=FALSE, warning=FALSE, paged.print=TRUE}
+
+# 4.2 It graphs the non-linear model (species richness vs soil temperature)
 
 Non_linear<-ggplot(Species_Temp, aes(x = temp_C, y = species_no )) +
   geom_point() +
@@ -240,9 +249,12 @@ Non_linear<-ggplot(Species_Temp, aes(x = temp_C, y = species_no )) +
             aes(y = fitted(smooth_model))) +
   theme_bw()
 
-Non_linear
+
 ```
-A higher species richness is linked to a lower soil temperature according to this simple linear model. We can also see that linearity is supported by these data (see Figure 1). However, this is just a model considering soil temperature as the only predictor. Other variables must be considered to search if it is a real observed trend. See more detail in the [Living Data Tutorials](https://living-data-tutorials.github.io/website/)
+
+# Results
+
+A higher species richness is linked to a lower soil temperature according to this simple linear model. We can also see that linearity is supported by these data (see Figure 1). However, this is just a model considering soil temperature as the only predictor. Other variables must be considered to search if it is a real observed trend. See more detail in the [Living Data Tutorials](https://living-data-tutorials.github.io/website/).
 
 # Discussion
 
@@ -259,12 +271,11 @@ document. For example... -->
 <!-- this little chunk of code (the ::: stuff below) forces the references to show up here. If you
 don't use this then they are put at the end of the document by default -->
 ```
-Hesketh, A., Loesberg, J., Bledsoe, E., Karst, J., & Macdonald, E. (2021). Seasonal and annual dynamics of western Canadian boreal forest plant communities: A legacy dataset spanning four decades [Data set]. Scholars Portal Dataverse. https://doi.org/10.5683/SP3/PZCAVE
+::: {#refs}
+:::
 
-Pickering, C., Hill, W. & Green, K. Vascular plant diversity and climate change in the alpine zone of the Snowy Mountains, Australia. Biodivers Conserv 17, 1627–1644 (2008). https://doi.org/10.1007/s10531-008-9371-y
-
-Robinson, S.I., McLaughlin, O.B., Maereinsdóttir, B., and O'Gorman, E.J. Soil temperature effects on the structure and diversity of plant and invertebrate communities in a natural warming experiment, Journal of Animal Ecology, 87(3):634-646 (2018).
 \newpage
+
 ```{r figure_02, echo=FALSE, message=FALSE, warning=FALSE}
 
 library(cowplot)
@@ -274,13 +285,9 @@ plot_grid(Linear,Non_linear, labels = "") #"AUTO"
 
 Figure 1. A) linear model approach and B) a non linear model approach. Linearity is respected.
 
-\newpage
-
 # Tables
 
 There are not table to show.
-
-\newpage
 
 # Appendices
 

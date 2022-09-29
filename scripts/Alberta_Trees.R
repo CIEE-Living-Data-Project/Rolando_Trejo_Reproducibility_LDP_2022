@@ -1,6 +1,6 @@
 
 # PRODUCTIVITY AND REPRODUCIBILITY IN ECOLOGY AND EVOLUTION ####
-# Proyect: Reproducibility mini project: Alberta trees
+# Project: Reproducibility mini project: Alberta trees
 # Rolando Trejo Pérez
 # Institut de recherche en biologie végétale, Université de Montréal
 
@@ -16,7 +16,7 @@ library("dplyr") # To solve the most common data manipulation challenges
 library("ggplot2") # To data visualization
 library("mgcv") # To estimate penalized Generalized Linear models including 
                 #Generalized Additive Models and Generalized Additive Mixed Models
-library("cowplot") # To creat publication-quality figures
+library("cowplot") # To create publication-quality figures
 
 # 1.1 Check for directory path
 
@@ -100,24 +100,24 @@ Hondo_SoilTemp_1980_2010 <- get_dataframe_by_name(
 
 df_non_binary <- subset(df,select = c(stand, month,year,date,quad,temp_C))
 
-#  It creates a subset of binary data: abundances needs to be transformed into 0 and 1 
+#  4.4 It creates a subset of binary data: abundances needs to be transformed into 0 and 1 
 # in order to count the species richness in each row.
 
 df_species <- subset(df,select = c(-stand, -month,-year,-date,-temp_C))
 
-# It transforms abundances into 0 and 1
+# 4.5 It transforms abundances into 0 and 1
 
 df_binary <- data.frame(df_species[1], (df_species[-1] > 0) * 1)
 
-# It merges the non binary data, soil temperature, and species abundances transformed into 0 and 1.
+# 4.6 It merges the non binary data, soil temperature, and species abundances transformed into 0 and 1.
 
 df_trans <- data.frame(df_non_binary,df_binary)
 
-# It sums the number of species in each row
+# 4.7 It sums the number of species in each row
 
 df_trans$species_no <- rowSums( df_trans[,8:221] )
 
-# It create the final table version: it includes only the species richness and soil temperature
+# 4.8 It create the final table version: it includes only the species richness and soil temperature
 
 Species_Temp <- subset(df_trans,select = c(species_no,temp_C))
 
